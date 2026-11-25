@@ -1,0 +1,27 @@
+[package]
+name = "pi-web-tray"
+version = "0.1.1"
+edition = "2024"
+rust-version = "1.88"
+description = "A tray controller for an existing Pi Web installation"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+dirs = "6"
+open = "5"
+semver = "1"
+serde_json = "1"
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-dialog = { version = "2", default-features = false, features = ["gtk3"] }
+tauri-plugin-single-instance = "2"
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[target.'cfg(windows)'.dependencies]
+process-wrap = { version = "11", default-features = false, features = ["std", "job-object", "creation-flags", "kill-on-drop"] }
+
+[dev-dependencies]
+tempfile = "3"
